@@ -1,9 +1,21 @@
 version: '3.2'
 services:
+  web:
+    build: .
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    env_file:
+      - igthorn.env
+
   db:
     image: postgres:11
     restart: always
     environment:
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     ports:
       - 5432:5432

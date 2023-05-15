@@ -61,6 +61,7 @@ config :hefty, Hefty.Repo,
   password: "postgres",
   database: "hefty_dev",
   hostname: "localhost",
+  port: 5432,
   pool_size: 10,
   log: :debug,
   timeout: 60_000
