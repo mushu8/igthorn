@@ -1,7 +1,6 @@
 .vscode
 /_build
 /cover
-/deps
 /doc
 /.fetch
 erl_crash.dump
@@ -11,4 +10,4 @@ erl_crash.dump
 .elixir_ls
 apps/hefty/config/secrets.exs
 node_modules/
-mix.lock
+.git/

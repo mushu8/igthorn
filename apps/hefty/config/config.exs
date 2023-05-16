@@ -60,7 +60,7 @@ config :hefty, Hefty.Repo,
   username: "postgres",
   password: "postgres",
   database: "hefty_dev",
-  hostname: "localhost",
+  hostname: "db",
   port: 5432,
   pool_size: 10,
   log: :debug,
@@ -72,8 +72,7 @@ config :binance,
 
 config :logger,
   backends: [:console],
-  compile_time_purge_level: :debug,
-  level: :info
+  level: :debug
 
 config :logger, :console,
   format: "\n$time $metadata[$level] $levelpad$message\n",

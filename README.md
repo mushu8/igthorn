@@ -37,13 +37,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Setting up
 
-```
-docker-compose up -d
-mix deps.get
-cd apps/ui/assets && npm install && cd ../../..
-cd apps/hefty && mix ecto.reset && cd ../..
+### Prerequisite
 
-iex -S mix phx.server
+- install podman : [https://formulae.brew.sh/formula/podman](https://formulae.brew.sh/formula/podman)
+- install podman-compose : [https://formulae.brew.sh/formula/podman-compose](https://formulae.brew.sh/formula/podman-compose)
+
+```
+podman-compose up -d
 ```
 
 Seeding script checks is there `api_key` and `secret` filled in config of Hefty. It will perform additional query to binance to fetch current assets' balances.
