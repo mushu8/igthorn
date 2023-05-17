@@ -64,7 +64,9 @@ config :hefty, Hefty.Repo,
   port: 5432,
   pool_size: 10,
   log: :debug,
-  timeout: 60_000
+  timeout: 60_000,
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true
 
 config :binance,
   api_key: "",

@@ -1,5 +1,7 @@
 defmodule UiWeb.PageView do
   @moduledoc false
 
-  use UiWeb, :view
+  use UiWeb, :html
+
+  embed_templates("../templates/page/*")
 end

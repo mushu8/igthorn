@@ -27,17 +27,16 @@ defmodule Hefty.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:binance, "~> 0.7.1"},
-      # {:binance, git: "https://github.com/Cinderella-Man/binance.ex.git"},
-      {:csv, "~> 2.3"},
-      {:decimal, "~> 1.7"},
-      {:ecto_sql, "~> 3.0"},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
-      {:flow, "~> 0.14"},
-      {:json, "~> 1.3"},
+      {:binance, "~> 1.0"},
+      {:csv, "~> 3.0"},
+      {:decimal, "~> 2.1"},
+      {:ecto_sql, "~> 3.10"},
+      {:ex_doc, "~> 0.29", only: :dev, runtime: false},
+      {:flow, "~> 1.2"},
+      {:json, "~> 1.4"},
       {:postgrex, ">= 0.0.0"},
-      {:timex, "~> 3.5"},
-      {:websockex, "~> 0.4.0"},
+      {:timex, "~> 3.7"},
+      {:websockex, "~> 0.4"},
       {:encrypt, "~> 0.1.0"},
       {:ui, in_umbrella: true}
     ]

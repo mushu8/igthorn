@@ -1,6 +1,8 @@
 defmodule UiWeb do
   @moduledoc false
 
+  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: UiWeb
@@ -12,22 +14,16 @@ defmodule UiWeb do
     end
   end
 
-  def view do
+  def html do
     quote do
-      use Phoenix.View,
-        root: "lib/ui_web/templates",
-        namespace: UiWeb
+      use Phoenix.Component
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
 
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
-      import UiWeb.ErrorHelpers
-      import UiWeb.Gettext
-      import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
-      alias UiWeb.Router.Helpers, as: Routes
+      # Include general helpers for rendering HTML
+      unquote(html_helpers())
     end
   end
 
@@ -44,6 +40,31 @@ defmodule UiWeb do
     quote do
       use Phoenix.Channel
       import UiWeb.Gettext
+    end
+  end
+
+  defp html_helpers do
+    quote do
+      # HTML escaping functionality
+      import Phoenix.HTML
+      # Core UI components and translation
+      import UiWeb.CoreComponents
+      import UiWeb.Gettext
+
+      # Shortcut for generating JS commands
+      alias Phoenix.LiveView.JS
+
+      # Routes generation with the ~p sigil
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: UiWeb.Endpoint,
+        router: UiWeb.Router,
+        statics: UiWeb.static_paths()
     end
   end
 

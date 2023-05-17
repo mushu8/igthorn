@@ -1,7 +1,9 @@
 defmodule UiWeb.ErrorView do
   @moduledoc false
 
-  use UiWeb, :view
+  use UiWeb, :html
+
+  embed_templates "../templates/my/*"
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

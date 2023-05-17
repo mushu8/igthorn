@@ -1,7 +1,9 @@
 defmodule UiWeb.LayoutView do
   @moduledoc false
 
-  use UiWeb, :view
+  use UiWeb, :html
+
+  embed_templates "../templates/layout/*"
 
   def get_page_title(conn) do
     conn

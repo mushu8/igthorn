@@ -7,10 +7,11 @@ import Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :ui, UiWeb.Endpoint,
-  http: [port: 4000],
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  secret_key_base: "D+ZMJ4arEIn3SGE9TdS60bGsd1APK2GAAgD8vlWH6qDPNY2UIfnQrJ/WcxY2hh/D",
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
@@ -51,8 +52,7 @@ config :ui, UiWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/ui_web/{live,views,controllers}/.*(ex)$",
-      ~r"lib/ui_web/templates/.*(eex)$"
+      ~r"lib/demo_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
 
@@ -62,6 +62,9 @@ config :ui, UiWeb.Endpoint,
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
