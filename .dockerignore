@@ -11,3 +11,4 @@ erl_crash.dump
 apps/hefty/config/secrets.exs
 node_modules/
 .git/
+Dockerfile
