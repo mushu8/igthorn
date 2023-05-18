@@ -105,12 +105,12 @@ defmodule UiWeb.TradesLive do
   def mount(%{}, socket) do
     {:ok,
      assign(socket,
-      page_title: "Trades",
-      section_subtitle: "Trades",
-      trades_data: trades_data(50, 1, ""),
-      rows_numbers: [10, 20, 30, 40, 50, 100, 200],
-      set_rows: 50,
-      search: ""
+       page_title: "Trades",
+       section_subtitle: "Trades",
+       trades_data: trades_data(50, 1, ""),
+       rows_numbers: [10, 20, 30, 40, 50, 100, 200],
+       set_rows: 50,
+       search: ""
      )}
   end
 

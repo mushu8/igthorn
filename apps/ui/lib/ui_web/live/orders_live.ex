@@ -104,14 +104,14 @@ defmodule UiWeb.OrdersLive do
 
   def mount(%{}, socket) do
     {:ok,
-    assign(socket,
-      page_title: "Orders",
-      section_subtitle: "Orders",
-      orders_data: orders_data(50, 1, ""),
-      rows_numbers: [10, 20, 30, 40, 50, 100, 200],
-      set_rows: 50,
-      search: ""
-    )}
+     assign(socket,
+       page_title: "Orders",
+       section_subtitle: "Orders",
+       orders_data: orders_data(50, 1, ""),
+       rows_numbers: [10, 20, 30, 40, 50, 100, 200],
+       set_rows: 50,
+       search: ""
+     )}
   end
 
   def handle_event("search", %{"search" => search}, socket) do

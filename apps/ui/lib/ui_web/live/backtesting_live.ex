@@ -65,12 +65,15 @@ defmodule UiWeb.BacktestingLive do
 
   def mount(%{}, socket) do
     symbols = Hefty.Pairs.fetch_symbols()
-    socket = assign(
-      socket,
-      page_title: "Backtesting",
-      section_subtitle: "Stream data through the system and check results",
-      symbols: symbols
-    )
+
+    socket =
+      assign(
+        socket,
+        page_title: "Backtesting",
+        section_subtitle: "Stream data through the system and check results",
+        symbols: symbols
+      )
+
     {:ok, socket}
   end
 

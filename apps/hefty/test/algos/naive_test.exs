@@ -280,7 +280,8 @@ defmodule Hefty.Algos.NaiveTest do
     assert new_buy.price == "0.4389"
     assert new_buy.status == "NEW"
 
-    assert D.compare(D.new(new_buy.original_quantity), D.new(canceled_buy.original_quantity)) == :lt
+    assert D.compare(D.new(new_buy.original_quantity), D.new(canceled_buy.original_quantity)) ==
+             :lt
   end
 
   test "Naive trader rebuy test" do

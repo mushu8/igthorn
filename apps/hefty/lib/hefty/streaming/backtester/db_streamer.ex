@@ -33,9 +33,7 @@ defmodule Hefty.Streaming.Backtester.DbStreamer do
       |> Hefty.Repo.one()
 
     Logger.info(
-      "#{result} records(time range #{from_ts}->#{to_ts}) to be stream with interval of #{
-        interval
-      }ms"
+      "#{result} records(time range #{from_ts}->#{to_ts}) to be stream with interval of #{interval}ms"
     )
 
     Hefty.Repo.transaction(

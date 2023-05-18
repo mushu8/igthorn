@@ -120,9 +120,7 @@ defmodule Hefty.Algos.Naive.Leader do
 
         _ ->
           Logger.info(
-            "Ignoring the fact that trader died as we are in graceful shutdown mode for symbol #{
-              symbol
-            }"
+            "Ignoring the fact that trader died as we are in graceful shutdown mode for symbol #{symbol}"
           )
 
           Enum.reject(state.traders, &(&1.pid == pid))

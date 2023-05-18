@@ -51,15 +51,17 @@ defmodule UiWeb.StreamingSettingsLive do
       Hefty.Streams.fetch_settings()
       |> Enum.into([], &{:"#{&1.symbol}", &1})
 
-    socket = assign(
-      socket,
-      %{
-        page_title: "Streaming settings",
-        section_subtitle: "Enabled or disable streaming on specific symbols",
-        settings: settings,
-        search: ""
-      }
-    )
+    socket =
+      assign(
+        socket,
+        %{
+          page_title: "Streaming settings",
+          section_subtitle: "Enabled or disable streaming on specific symbols",
+          settings: settings,
+          search: ""
+        }
+      )
+
     {:ok, socket}
   end
 

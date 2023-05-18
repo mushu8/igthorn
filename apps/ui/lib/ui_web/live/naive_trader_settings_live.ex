@@ -158,13 +158,13 @@ defmodule UiWeb.NaiveTraderSettingsLive do
   def mount(%{}, _session, socket) do
     {:ok,
      assign(socket,
-      page_title: "Naive trader settings",
-      section_subtitle: "Settings and enabling or disabling for naive trading",
-      naive_trader_settings_data: naive_trader_settings_data(50, 1, ""),
-      rows_numbers: [10, 20, 30, 40, 50, 100, 200],
-      set_rows: 50,
-      edit_row: nil,
-      search: ""
+       page_title: "Naive trader settings",
+       section_subtitle: "Settings and enabling or disabling for naive trading",
+       naive_trader_settings_data: naive_trader_settings_data(50, 1, ""),
+       rows_numbers: [10, 20, 30, 40, 50, 100, 200],
+       set_rows: 50,
+       edit_row: nil,
+       search: ""
      )}
   end
 

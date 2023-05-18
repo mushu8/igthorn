@@ -249,9 +249,7 @@ defmodule Hefty.Algos.Naive.Trader do
     Logger.debug("Buy order filling - event received - #{inspect(event)}")
 
     Logger.info(
-      "Trader(#{id}) received an transaction of #{event.quantity} for BUY order #{order_id} @ #{
-        price
-      }"
+      "Trader(#{id}) received an transaction of #{event.quantity} for BUY order #{order_id} @ #{price}"
     )
 
     # Race condition here - when a lot of transactions are happening - before we will
@@ -327,9 +325,7 @@ defmodule Hefty.Algos.Naive.Trader do
     Logger.debug("Sell order filling - event received - #{inspect(event)}")
 
     Logger.info(
-      "Trader(#{id}) received an transaction of #{event.quantity} for SELL order #{order_id} @ #{
-        price
-      }"
+      "Trader(#{id}) received an transaction of #{event.quantity} for SELL order #{order_id} @ #{price}"
     )
 
     {:ok, current_sell_order} = @binance_client.get_order(symbol, time, order_id)
@@ -635,9 +631,7 @@ defmodule Hefty.Algos.Naive.Trader do
     case Hefty.Algos.Naive.Leader.is_price_level_available(symbol, target_price) do
       true ->
         Logger.info(
-          "Trader(#{id}) - Placing BUY order for #{symbol} @ #{target_price}, quantity: #{
-            quantity
-          }"
+          "Trader(#{id}) - Placing BUY order for #{symbol} @ #{target_price}, quantity: #{quantity}"
         )
 
         {:ok, res} =
@@ -654,9 +648,7 @@ defmodule Hefty.Algos.Naive.Trader do
 
       false ->
         Logger.info(
-          "Trader #{id}: Price level(#{target_price}) not available for trader(#{id}) on symbol #{
-            symbol
-          }"
+          "Trader #{id}: Price level(#{target_price}) not available for trader(#{id}) on symbol #{symbol}"
         )
 
         {:error, :price_level_taken, target_price}

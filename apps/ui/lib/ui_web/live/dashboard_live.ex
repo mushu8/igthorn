@@ -25,11 +25,13 @@ defmodule UiWeb.DashboardLive do
   end
 
   def mount(_params, _session, socket) do
-    socket = assign(
-      socket,
-      page_title: "Dashboard",
-      section_subtitle: "Overview of the system"
-    )
+    socket =
+      assign(
+        socket,
+        page_title: "Dashboard",
+        section_subtitle: "Overview of the system"
+      )
+
     {:ok, socket}
   end
 end
