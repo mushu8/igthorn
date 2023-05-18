@@ -111,7 +111,7 @@ defmodule UiWeb.PriceFeedLive do
     end
   end
 
-  defp get_direction(new_price, old_price), do: D.cmp(new_price, old_price)
+  defp get_direction(new_price, old_price), do: D.compare(new_price, old_price)
 
   defp get_direction_indicators(:gt), do: {"text-green", "fa-angle-up"}
   defp get_direction_indicators(:lt), do: {"text-red", "fa-angle-down"}

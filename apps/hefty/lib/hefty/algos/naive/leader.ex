@@ -287,7 +287,7 @@ defmodule Hefty.Algos.Naive.Leader do
     price = D.from_float(target_price)
     diff = D.sub(D.from_float(1.0), D.div(price, order_price))
 
-    case D.cmp(diff, D.new(interval)) do
+    case D.compare(diff, D.new(interval)) do
       :gt -> false
       _ -> true
     end

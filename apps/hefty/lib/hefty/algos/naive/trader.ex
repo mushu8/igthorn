@@ -257,7 +257,7 @@ defmodule Hefty.Algos.Naive.Trader do
     # Race condition here - when a lot of transactions are happening - before we will
     # make this query there's second transaction happened in Binance and this
     # order will be fully filled but another event will show up here later which will
-    # have problem of this buy order being closed. 
+    # have problem of this buy order being closed.
     {:ok, current_buy_order} = @binance_client.get_order(symbol, time, order_id)
 
     {:ok, new_state} =
@@ -399,7 +399,7 @@ defmodule Hefty.Algos.Naive.Trader do
     retarget_price = D.add(d_order_price, D.mult(d_order_price, D.new(retarget_interval)))
 
     new_state =
-      case D.cmp(retarget_price, d_current_price) do
+      case D.compare(retarget_price, d_current_price) do
         :lt ->
           Logger.info(
             "Trader(#{id}) - Retargeting triggered for trade #{trade_id}" <>
@@ -525,7 +525,7 @@ defmodule Hefty.Algos.Naive.Trader do
 
     stop_loss_price = D.sub(d_buy_price, D.mult(d_buy_price, D.new(stop_loss_interval)))
 
-    case D.cmp(d_current_price, stop_loss_price) do
+    case D.compare(d_current_price, stop_loss_price) do
       :lt -> stop_loss_price
       _ -> false
     end
@@ -537,7 +537,7 @@ defmodule Hefty.Algos.Naive.Trader do
 
     rebuy_price = D.sub(d_buy_price, D.mult(d_buy_price, D.new(rebuy_interval)))
 
-    case D.cmp(d_current_price, rebuy_price) do
+    case D.compare(d_current_price, rebuy_price) do
       :lt -> rebuy_price
       _ -> false
     end

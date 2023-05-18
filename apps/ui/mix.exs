@@ -39,6 +39,7 @@ defmodule Ui.MixProject do
     [
       {:decimal, "~> 2.1"},
       {:gettext, "~> 0.22"},
+      {:hefty, in_umbrella: true},
       {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.2"},
       {:phoenix_html, "~> 3.3"},

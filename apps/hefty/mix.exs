@@ -38,8 +38,8 @@ defmodule Hefty.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 3.7"},
       {:websockex, "~> 0.4"},
-      {:encrypt, "~> 0.1.0"},
-      {:ui, in_umbrella: true}
+      {:encrypt, "~> 0.1.0"}
+      # {:ui, in_umbrella: true}
     ]
   end
 

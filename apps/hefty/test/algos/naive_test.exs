@@ -32,11 +32,11 @@ defmodule Hefty.Algos.NaiveTest do
     [buy_order, sell_order, _new_buy_order] = orders
 
     # Making sure that budget is increased after sale
-    assert D.cmp(budget, D.new("20.0")) == :gt
+    assert D.compare(budget, D.new("20.0")) == :gt
 
-    assert D.cmp(D.new(buy_order.price), D.new(event_1.price)) == :lt
+    assert D.compare(D.new(buy_order.price), D.new(event_1.price)) == :lt
 
-    assert D.cmp(
+    assert D.compare(
              D.new(buy_order.original_quantity),
              D.div(D.new(settings.budget), D.new(buy_order.price))
            ) == :lt
@@ -99,9 +99,9 @@ defmodule Hefty.Algos.NaiveTest do
     assert length(orders) == 3
     [buy_order, sell_order, _new_buy_order] = orders
 
-    assert D.cmp(D.new(buy_order.price), D.new(event_1.price)) == :lt
+    assert D.compare(D.new(buy_order.price), D.new(event_1.price)) == :lt
 
-    assert D.cmp(
+    assert D.compare(
              D.new(buy_order.original_quantity),
              D.div(D.new(settings.budget), D.new(buy_order.price))
            ) == :lt
@@ -166,9 +166,9 @@ defmodule Hefty.Algos.NaiveTest do
     assert length(orders) == 3
     [buy_order, sell_order, _new_buy_order] = orders
 
-    assert D.cmp(D.new(buy_order.price), D.new(event_1.price)) == :lt
+    assert D.compare(D.new(buy_order.price), D.new(event_1.price)) == :lt
 
-    assert D.cmp(
+    assert D.compare(
              D.new(buy_order.original_quantity),
              D.div(D.new(settings.budget), D.new(buy_order.price))
            ) == :lt
@@ -224,11 +224,11 @@ defmodule Hefty.Algos.NaiveTest do
     assert canceled_sell.status == "CANCELED"
 
     # Checking stop loss order
-    assert D.cmp(D.new(stop_loss.price), D.new("0.4221350")) == :lt
+    assert D.compare(D.new(stop_loss.price), D.new("0.4221350")) == :lt
     assert stop_loss.status == "FILLED"
 
     # Checking new buy price
-    assert D.cmp(D.new(new_buy.price), D.new(event_9.price)) == :lt
+    assert D.compare(D.new(new_buy.price), D.new(event_9.price)) == :lt
     assert new_buy.status == "NEW"
   end
 
@@ -280,7 +280,7 @@ defmodule Hefty.Algos.NaiveTest do
     assert new_buy.price == "0.4389"
     assert new_buy.status == "NEW"
 
-    assert D.cmp(D.new(new_buy.original_quantity), D.new(canceled_buy.original_quantity)) == :lt
+    assert D.compare(D.new(new_buy.original_quantity), D.new(canceled_buy.original_quantity)) == :lt
   end
 
   test "Naive trader rebuy test" do

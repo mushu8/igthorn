@@ -200,10 +200,10 @@ defmodule Hefty.Streaming.Backtester.SimpleStreamer do
   end
 
   defp less_than(a, b) do
-    D.cmp(a, b) == :lt
+    D.compare(a, b) == :lt
   end
 
   defp greather_than(a, b) do
-    D.cmp(a, b) == :gt
+    D.compare(a, b) == :gt
   end
 end
