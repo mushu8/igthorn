@@ -54,7 +54,7 @@ defmodule UiWeb.PriceFeedLive do
     """
   end
 
-  def mount(%{}, socket) do
+  def mount(_params, _session, socket) do
     ticks =
       Hefty.Streams.fetch_streaming_symbols()
       |> symbols_to_keywords

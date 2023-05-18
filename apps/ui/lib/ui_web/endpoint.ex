@@ -1,5 +1,5 @@
 defmodule UiWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :ui_web
+  use Phoenix.Endpoint, otp_app: :ui
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -19,18 +19,18 @@ defmodule UiWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :ui_web,
+    from: :ui,
     gzip: false,
     only: UiWeb.static_paths()
 
-  # Code reloading can be explicitly enabled under the
-  # :code_reloader configuration of your endpoint.
-  if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
-    plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ui_web
-  end
+  # # Code reloading can be explicitly enabled under the
+  # # :code_reloader configuration of your endpoint.
+  # if code_reloading? do
+  #   socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+  #   plug Phoenix.LiveReloader
+  #   plug Phoenix.CodeReloader
+  #   plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ui
+  # end
 
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",

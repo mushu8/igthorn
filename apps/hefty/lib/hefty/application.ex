@@ -6,6 +6,8 @@ defmodule Hefty.Application do
     workers = [
       {Hefty.Repo, []},
       {Hefty.Streaming.Binance.Supervisor, []},
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Hefty.PubSub},
       # used for backtesting
       {Hefty.Streaming.Backtester.SimpleStreamer, []},
       {Hefty.Algos.Naive.Supervisor, []}

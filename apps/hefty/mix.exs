@@ -34,6 +34,7 @@ defmodule Hefty.MixProject do
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
       {:flow, "~> 1.2"},
       {:json, "~> 1.4"},
+      {:phoenix_pubsub, "~> 2.1"},
       {:postgrex, ">= 0.0.0"},
       {:timex, "~> 3.7"},
       {:websockex, "~> 0.4"},

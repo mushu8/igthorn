@@ -50,7 +50,7 @@ defmodule UiWeb.TradesChartLive do
     """
   end
 
-  def mount(%{}, socket) do
+  def mount(_params, _session, socket) do
     symbols = ["ALL" | Hefty.Trades.get_all_trading_symbols()]
 
     {:ok, assign(socket, data: get_data(), symbol: "ALL", symbols: symbols)}

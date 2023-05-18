@@ -102,8 +102,8 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      <%= get_section_head(@conn) %>
-      <small><%= get_section_subtitle(@conn) %></small>
+      <%= @page_title %>
+      <small><%= @section_subtitle %></small>
     </h1>
     <ol class="breadcrumb">
       <li class="active"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -112,7 +112,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <%= render @view_module, @view_template, assigns %>
+    <%= @inner_content %>
   </section>
   <!-- /.content -->
 </div>

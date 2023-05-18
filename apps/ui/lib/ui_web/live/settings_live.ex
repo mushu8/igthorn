@@ -14,6 +14,11 @@ defmodule UiWeb.SettingsLive do
   end
 
   def mount(%{}, socket) do
-    {:ok, socket}
+    {:ok,
+    assign(
+      socket,
+      page_title: "Settings",
+      section_subtitle: "Settings"
+    )}
   end
 end

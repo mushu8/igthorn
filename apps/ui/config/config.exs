@@ -12,7 +12,7 @@ config :ui, UiWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "R23gwF7fVqXLhFsqsIyDPxPwZiZPKzZxjtJHw+p1U4vHPJdk3dh1zB6PK1tyYtYV",
   render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Ui.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Hefty.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

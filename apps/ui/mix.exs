@@ -37,6 +37,7 @@ defmodule Ui.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:decimal, "~> 2.1"},
       {:gettext, "~> 0.22"},
       {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.2"},
@@ -44,7 +45,6 @@ defmodule Ui.MixProject do
       {:phoenix_live_dashboard, "~> 0.7.2"},
       {:phoenix_live_reload, "~> 1.4", only: :dev},
       {:phoenix_live_view, "~> 0.18.18"},
-      {:phoenix_pubsub, "~> 2.1"},
       {:plug_cowboy, "~> 2.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"}

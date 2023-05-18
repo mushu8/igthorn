@@ -18,14 +18,14 @@ defmodule UiWeb.Router do
   scope "/", UiWeb do
     pipe_through(:browser)
 
-    get("/", PageController, :index)
-    get("/streaming-settings", StreamingSettingsController, :index)
-    get("/orders", OrdersController, :index)
-    get("/trades", TradesController, :index)
-    get("/transactions", TransactionsController, :index)
-    get("/backtesting", BacktestingController, :index)
-    get("/naive-trader-settings", NaiveSettingsController, :index)
-    get("/settings", SettingsController, :index)
+    live("/", DashboardLive)
+    live("/streaming-settings", StreamingSettingsLive)
+    live("/orders", OrdersLive)
+    live("/trades", TradesLive)
+    # live("/transactions", TransactionsController, :index)
+    live("/backtesting", BacktestingLive)
+    live("/naive-trader-settings", NaiveTraderSettingsLive)
+    live("/settings", SettingsLive)
   end
 
   if Application.compile_env(:ui, :dev_routes) do
@@ -40,7 +40,6 @@ defmodule UiWeb.Router do
       pipe_through(:browser)
 
       live_dashboard("/dashboard", metrics: UiWeb.Telemetry)
-      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end

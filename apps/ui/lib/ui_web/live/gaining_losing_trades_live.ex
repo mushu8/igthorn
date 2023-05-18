@@ -62,7 +62,7 @@ defmodule UiWeb.GainingLosingTradesLive do
     """
   end
 
-  def mount(%{}, socket) do
+  def mount(_params, _session, socket) do
     [from, to] = Hefty.Utils.Datetime.get_timestamps(T.today())
 
     symbols =

@@ -51,7 +51,7 @@ defmodule UiWeb.PriceChartLive do
     """
   end
 
-  def mount(%{}, socket) do
+  def mount(_params, _session, socket) do
     symbols =
       Hefty.Streams.fetch_streaming_symbols()
       |> Map.keys()

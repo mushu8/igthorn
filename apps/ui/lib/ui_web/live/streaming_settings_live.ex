@@ -46,8 +46,21 @@ defmodule UiWeb.StreamingSettingsLive do
     """
   end
 
-  def mount(%{settings: settings}, socket) do
-    {:ok, assign(socket, settings: settings, search: "")}
+  def mount(_params, _session, socket) do
+    settings =
+      Hefty.Streams.fetch_settings()
+      |> Enum.into([], &{:"#{&1.symbol}", &1})
+
+    socket = assign(
+      socket,
+      %{
+        page_title: "Streaming settings",
+        section_subtitle: "Enabled or disable streaming on specific symbols",
+        settings: settings,
+        search: ""
+      }
+    )
+    {:ok, socket}
   end
 
   def handle_event("stream-symbol-" <> symbol, _, socket) do
