@@ -5,11 +5,12 @@ defmodule Ui.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
       # Start the Telemetry supervisor
-      DemoWeb.Telemetry,
+      UiWeb.Telemetry,
       # Start the endpoint when the application starts
       UiWeb.Endpoint
       # Starts a worker by calling: Ui.Worker.start_link(arg)
@@ -24,6 +25,7 @@ defmodule Ui.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     UiWeb.Endpoint.config_change(changed, removed)
     :ok

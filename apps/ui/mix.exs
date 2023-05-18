@@ -13,7 +13,6 @@ defmodule Ui.MixProject do
       lockfile: "../../mix.lock",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -38,14 +37,17 @@ defmodule Ui.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.2"},
-      {:phoenix_pubsub, "~> 2.1"},
-      {:phoenix_html, "~> 3.3"},
-      {:phoenix_live_reload, "~> 1.4", only: :dev},
       {:gettext, "~> 0.22"},
       {:jason, "~> 1.4"},
+      {:phoenix, "~> 1.7.2"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_live_dashboard, "~> 0.7.2"},
+      {:phoenix_live_reload, "~> 1.4", only: :dev},
+      {:phoenix_live_view, "~> 0.18.18"},
+      {:phoenix_pubsub, "~> 2.1"},
       {:plug_cowboy, "~> 2.6"},
-      {:phoenix_live_view, "~> 0.18.18"}
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"}
     ]
   end
 end

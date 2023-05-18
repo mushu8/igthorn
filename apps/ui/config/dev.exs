@@ -63,6 +63,9 @@ config :ui, UiWeb.Endpoint,
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+# Enable dev routes for dashboard and mailbox
+config :sample_app, dev_routes: true
+
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
 

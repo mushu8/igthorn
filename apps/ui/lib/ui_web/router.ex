@@ -39,7 +39,7 @@ defmodule UiWeb.Router do
     scope "/dev" do
       pipe_through(:browser)
 
-      live_dashboard("/dashboard", metrics: DemoWeb.Telemetry)
+      live_dashboard("/dashboard", metrics: UiWeb.Telemetry)
       forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end

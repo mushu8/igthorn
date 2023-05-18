@@ -36,7 +36,7 @@ get_config_file_path = fn filename ->
   |> Path.expand(config_directory)
 end
 
-path = get_config_file_path.("#{Mix.env()}.exs")
+path = get_config_file_path.("#{config_env()}.exs")
 
 if File.exists?(path) do
   import_config path
