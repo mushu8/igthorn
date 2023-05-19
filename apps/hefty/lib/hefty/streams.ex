@@ -7,7 +7,8 @@ defmodule Hefty.Streams do
 
     query =
       from(ss in Hefty.Repo.StreamingSetting,
-        order_by: [desc: ss.enabled, asc: ss.symbol]
+        order_by: [desc: ss.enabled, asc: ss.symbol],
+        limit: 30
       )
 
     Hefty.Repo.all(query)

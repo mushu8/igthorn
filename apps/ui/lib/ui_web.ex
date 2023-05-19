@@ -44,7 +44,6 @@ defmodule UiWeb do
 
       import Plug.Conn
       import UiWeb.Gettext
-      import Phoenix.LiveView.Controller
 
       unquote(verified_routes())
     end
@@ -53,7 +52,7 @@ defmodule UiWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {UiWeb.Layouts, :live}
+        layout: {UiWeb.Layouts, :app}
 
       unquote(html_helpers())
     end

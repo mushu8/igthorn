@@ -1,8 +1,9 @@
 defmodule UiWeb.DashboardLive do
   @moduledoc false
 
-  use Phoenix.LiveView
+  use UiWeb, :live_view
 
+  @impl true
   def render(assigns) do
     ~H"""
     <script src="/dist/js/chart.js"></script>
@@ -24,6 +25,7 @@ defmodule UiWeb.DashboardLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     socket =
       assign(

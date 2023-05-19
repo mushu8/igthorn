@@ -3,8 +3,8 @@ defmodule UiWeb.PageController do
 
   use UiWeb, :controller
 
-  def index(conn, _params) do
-    conn
-    |> live_render(UiWeb.DashboardLive, session: %{})
-  end
+  # def index(conn, _params) do
+  #   conn
+  #   |> live_render(UiWeb.DashboardLive, session: %{})
+  # end
 end
