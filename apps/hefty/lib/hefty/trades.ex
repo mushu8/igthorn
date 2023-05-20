@@ -7,7 +7,7 @@ defmodule Hefty.Trades do
   alias Hefty.Repo.Trade
   alias Hefty.Repo.Binance.Order
 
-  @fee D.new(Application.get_env(:hefty, :trading).defaults.fee)
+  @fee D.new(Application.compile_env(:hefty, :trading).defaults.fee)
 
   def fetch(offset, limit, symbol \\ "") do
     Logger.debug("Fetching trades for a symbol(#{symbol})")

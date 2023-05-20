@@ -4,7 +4,7 @@ defmodule Hefty.Algos.Naive.Trader do
   import Ecto.Query, only: [from: 2]
   alias Decimal, as: D
 
-  @binance_client Application.get_env(:hefty, :exchanges).binance
+  @binance_client Application.compile_env(:hefty, :exchanges).binance
 
   @moduledoc """
   Hefty.Algos.Naive.Trader module is responsible for making a trade(buy + sell)
@@ -91,11 +91,9 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, fresh_state}
   end
 
-  @doc """
-  Continue strategy called on init when trading was stopped
-  and there's no detailed state in leader so only buy and sell
-  order can be passed from leader (fetched from db)
-  """
+  # Continue strategy called on init when trading was stopped
+  # and there's no detailed state in leader so only buy and sell
+  # order can be passed from leader (fetched from db)
   def handle_cast(
         {
           :init_strategy,
@@ -125,11 +123,9 @@ defmodule Hefty.Algos.Naive.Trader do
      })}
   end
 
-  @doc """
-  Restart strategy called on init when leader is aware of exact
-  state what trader was in before stopping. Current state of trader
-  is ignored.
-  """
+  # Restart strategy called on init when leader is aware of exact
+  # state what trader was in before stopping. Current state of trader
+  # is ignored.
   def handle_cast(
         {
           :init_strategy,
@@ -142,9 +138,7 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Updates settings cache.
-  """
+  # Updates settings cache.
   def handle_cast({:update_settings, settings}, state) do
     Logger.debug("Updating trader(#{state.id}) settings")
 
@@ -156,9 +150,7 @@ defmodule Hefty.Algos.Naive.Trader do
      })}
   end
 
-  @doc """
-  Re-enable rebuy notification
-  """
+  # Re-enable rebuy notification
   def handle_cast(:reenable_rebuy, state) do
     {:noreply, %{state | rebuy_notified: false}}
   end
@@ -215,15 +207,11 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Situation:
-
-  Buy order was placed but it didn't get filled yet. Incoming event
-  points to that buy order
-
-  Updates buy order as incoming transaction is filling our buy order
-  If buy order is now fully filled it will submit sell order.
-  """
+  # Situation:
+  # Buy order was placed but it didn't get filled yet. Incoming event
+  # points to that buy order
+  # Updates buy order as incoming transaction is filling our buy order
+  # If buy order is now fully filled it will submit sell order.
   def handle_info(
         %{
           event: "trade_event",
@@ -291,15 +279,11 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Situation:
-
-  Buy order and sell order are already placed. Incoming event points to
-  our sell order.
-
-  Updates sell order as incoming transaction is filling our sell order
-  If sell order is now fully filled it should stop trading.
-  """
+  # Situation:
+  # Buy order and sell order are already placed. Incoming event points to
+  # our sell order.
+  # Updates sell order as incoming transaction is filling our sell order
+  # If sell order is now fully filled it should stop trading.
   def handle_info(
         %{
           event: "trade_event",
@@ -361,13 +345,10 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Situation:
-
-  Buy order is placed and not filled, price is increasing so we need check did
-  it grow more than `retarget_interval`, then we need to cancel order and
-  place another one based on current value
-  """
+  # Situation:
+  # Buy order is placed and not filled, price is increasing so we need check did
+  # it grow more than `retarget_interval`, then we need to cancel order and
+  # place another one based on current value
   def handle_info(
         %{
           event: "trade_event",
@@ -430,13 +411,10 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Situation
-  STOP LOSS OR REBUY:
-
-  Buy and sell orders were placed, only buy got filled.
-  Price is dropping - stop loss should be triggered
-  """
+  # Situation
+  # STOP LOSS OR REBUY:
+  # Buy and sell orders were placed, only buy got filled.
+  # Price is dropping - stop loss should be triggered
   def handle_info(
         %{
           event: "trade_event",
@@ -483,10 +461,8 @@ defmodule Hefty.Algos.Naive.Trader do
     {:noreply, new_state}
   end
 
-  @doc """
-  Situation:
-  Rebuy scenario after placing buy order
-  """
+  # Situation:
+  # Rebuy scenario after placing buy order
   def handle_info(
         %{
           event: "trade_event",

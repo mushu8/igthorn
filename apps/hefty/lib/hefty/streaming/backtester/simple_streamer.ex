@@ -123,9 +123,7 @@ defmodule Hefty.Streaming.Backtester.SimpleStreamer do
     {:noreply, state}
   end
 
-  @doc """
-  Handles buy orders coming from Binance Mock
-  """
+  # Handles buy orders coming from Binance Mock
   def handle_cast(
         {
           :order,
@@ -140,9 +138,7 @@ defmodule Hefty.Streaming.Backtester.SimpleStreamer do
     {:noreply, %{state | :buy_stacks => Map.put(buy_stacks, symbol, new_orders)}}
   end
 
-  @doc """
-  Handles sell orders coming from Binance Mock
-  """
+  # Handles sell orders coming from Binance Mock
   def handle_cast(
         {
           :order,
