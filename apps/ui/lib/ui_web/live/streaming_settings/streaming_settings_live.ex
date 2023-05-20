@@ -8,8 +8,9 @@ defmodule UiWeb.StreamingSettingsLive do
   def mount(_params, _session, socket) do
     socket =
       if connected?(socket) do
-        settings = Hefty.Streams.fetch_settings()
-        |> Enum.into([], &{:"#{&1.symbol}", &1})
+        settings =
+          Hefty.Streams.fetch_settings()
+          |> Enum.into([], &{:"#{&1.symbol}", &1})
 
         assign(
           socket,

@@ -165,7 +165,7 @@ defmodule Hefty.Streaming.Backtester.SimpleStreamer do
     #  "stream-#{event.symbol}",
     #  "trade_event",
     #  event
-    #)
+    # )
   end
 
   defp convert_order_to_event(%Binance.OrderResponse{} = order, time, market_price \\ nil) do
