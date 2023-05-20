@@ -5,8 +5,8 @@ defmodule Hefty.Streaming.Backtester.DummyListener do
     GenServer.start_link(__MODULE__, symbol)
   end
 
-  def init(symbol) do
-    UiWeb.Endpoint.subscribe("stream-#{symbol}")
+  def init(_symbol) do
+    # UiWeb.Endpoint.subscribe("stream-#{symbol}")
     {:ok, []}
   end
 

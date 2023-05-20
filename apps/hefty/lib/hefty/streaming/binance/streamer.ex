@@ -42,7 +42,7 @@ defmodule Hefty.Streaming.Binance.Streamer do
   defp handle_event(%{"e" => "trade"} = event, state) do
     Logger.debug("Getting event - #{event["e"]}")
 
-    {:ok, trade_event} =
+    # {:ok, trade_event} =
       %Hefty.Repo.Binance.TradeEvent{
         :event_type => event["e"],
         :event_time => event["E"],
@@ -57,12 +57,12 @@ defmodule Hefty.Streaming.Binance.Streamer do
       }
       |> Hefty.Repo.insert()
 
-    UiWeb.Endpoint.broadcast_from(
-      self(),
-      "stream-#{trade_event.symbol}",
-      "trade_event",
-      trade_event
-    )
+    # UiWeb.Endpoint.broadcast_from(
+    #   self(),
+    #   "stream-#{trade_event.symbol}",
+    #   "trade_event",
+    #   trade_event
+    # )
 
     {:ok, state}
   end

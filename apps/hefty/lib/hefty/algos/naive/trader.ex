@@ -64,7 +64,7 @@ defmodule Hefty.Algos.Naive.Trader do
     GenServer.cast(self(), {:init_strategy, strategy, data})
 
     Logger.debug("Trader subscribing to #{"stream-#{symbol}"}")
-    :ok = UiWeb.Endpoint.subscribe("stream-#{symbol}")
+    # :ok = UiWeb.Endpoint.subscribe("stream-#{symbol}")
 
     {:ok,
      %State{
@@ -765,7 +765,7 @@ defmodule Hefty.Algos.Naive.Trader do
   defp stop_trading(trader_id, symbol, buy_order) do
     Logger.info("Shuting down trader(#{trader_id}) on #{symbol}")
 
-    :ok = UiWeb.Endpoint.unsubscribe("stream-#{symbol}")
+    # :ok = UiWeb.Endpoint.unsubscribe("stream-#{symbol}")
 
     case buy_order do
       nil ->

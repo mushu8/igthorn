@@ -159,13 +159,13 @@ defmodule Hefty.Streaming.Backtester.SimpleStreamer do
   end
 
   # PRIVATE FUNCTIONS
-  defp broadcast_trade_event(event) do
-    UiWeb.Endpoint.broadcast_from(
-      self(),
-      "stream-#{event.symbol}",
-      "trade_event",
-      event
-    )
+  defp broadcast_trade_event(_event) do
+    # UiWeb.Endpoint.broadcast_from(
+    #   self(),
+    #  "stream-#{event.symbol}",
+    #  "trade_event",
+    #  event
+    #)
   end
 
   defp convert_order_to_event(%Binance.OrderResponse{} = order, time, market_price \\ nil) do

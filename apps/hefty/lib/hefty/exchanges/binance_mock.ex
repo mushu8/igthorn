@@ -67,7 +67,7 @@ defmodule Hefty.Exchanges.BinanceMock do
       case Enum.find(subscriptions, nil, &(&1 == symbol)) do
         nil ->
           Logger.debug("BinanceMock subscribing to #{"stream-#{symbol}"}")
-          :ok = UiWeb.Endpoint.subscribe("stream-#{symbol}")
+          # :ok = UiWeb.Endpoint.subscribe("stream-#{symbol}")
           [symbol | subscriptions]
 
         _ ->
