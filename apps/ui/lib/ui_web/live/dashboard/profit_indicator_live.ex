@@ -1,10 +1,11 @@
 defmodule UiWeb.ProfitIndicatorLive do
   @moduledoc false
 
-  use Phoenix.LiveView
+  use UiWeb, :live_view
 
+  @impl true
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div class="box box-default">
       <div class="box-header with-border">
         <h3 class="box-title">Total Profit</h3>
@@ -20,14 +21,13 @@ defmodule UiWeb.ProfitIndicatorLive do
         <div class="row">
           <%= if length(@symbols) > 0 do %>
             <div class="col-xs-3">
-              <form phx-change="change-symbol" id="change-symbol">
+              <form phx-change="change-symbol" id="profit-indicator-change-symbol">
                 <select name="selected_symbol" class="form-control">
                   <%= for row <- @symbols do %>
-                    <option value="<%= row %>"
-                    <%= if row == @symbol do %>
-                      selected
-                    <% end %>
-                    ><%= row %></option>
+                  <option value={row}
+                    selected={row == @symbol}>
+                    <%= row %>
+                  </option>
                   <% end %>
                 </select>
               </form>
@@ -37,7 +37,7 @@ defmodule UiWeb.ProfitIndicatorLive do
         <div class="row">
           <%= for row <- @data do %>
             <%= for elem <- row do %>
-              <div class="col-md-<%= div(12, length(row)) %>">
+              <div class={"col-md-#{div(12, length(row))}"}>
                 <div class="info-box">
                   <div class="info-box-content">
                     <span class="info-box-text"><%= elem.type %></span>
@@ -57,12 +57,14 @@ defmodule UiWeb.ProfitIndicatorLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     symbols = ["ALL" | Hefty.Trades.get_all_trading_symbols()]
 
     {:ok, assign(socket, data: get_data(), symbol: "ALL", symbols: symbols)}
   end
 
+  @impl true
   def handle_event("change-symbol", %{"selected_symbol" => "ALL"}, socket) do
     {:noreply,
      assign(socket,
@@ -72,6 +74,7 @@ defmodule UiWeb.ProfitIndicatorLive do
      )}
   end
 
+  @impl true
   def handle_event("change-symbol", %{"selected_symbol" => selected_symbol}, socket) do
     {:noreply,
      assign(socket,

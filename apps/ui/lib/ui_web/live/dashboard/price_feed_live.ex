@@ -1,59 +1,62 @@
 defmodule UiWeb.PriceFeedLive do
   @moduledoc false
 
-  use Phoenix.LiveView
+  use UiWeb, :live_view
   alias Decimal, as: D
 
+  @impl true
   def render(assigns) do
-    ~L"""
-      Current prices of streamed symbol
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Current prices</h3>
-          <div class="box-tools pull-right">
-            <form phx_change="validate" phx-submit="validate">
-              <div class="input-group input-group-sm" style="width: 180px;">
-                <input type="text" name="search" class="form-control pull-right" placeholder="Search">
-                <div class="input-group-btn">
-                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                </div>
+    ~H"""
+    Current prices of streamed symbol
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Current prices</h3>
+        <div class="box-tools pull-right">
+          <form phx_change="validate" phx-submit="validate">
+            <div class="input-group input-group-sm" style="width: 180px;">
+              <input type="text" name="search" class="form-control pull-right" placeholder="Search">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
-        <!-- /.box-header -->
-        <%= if length(@ticks) > 0 do %>
-          <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
-              <tbody><tr>
-                <th>Symbol</th>
-                <th>Price</th>
-              </tr>
-              <%= for tick <- Keyword.values(@ticks) do %>
-              <tr>
-                <td><%= tick.symbol %></td>
-                <td>
-                  <span class="<%= elem(get_direction_indicators(tick.direction), 0) %>">
-                    <i class="fa <%= elem(get_direction_indicators(tick.direction), 1) %>"></i>
-                    <%= tick.price %>
-                  </span>
-                </td>
-              </tr>
-              <% end %>
-            </tbody></table>
-          </div>
-        <% else %>
-          <div class="box-body">
-            You are not streaming any symbols at the moment. Go to "Streaming settings" to enable
-            streaming on symbols that will show up here
-          </div>
-        <% end %>
-        <!-- /.box-body -->
       </div>
-      <!-- /.box -->
+      <!-- /.box-header -->
+      <%= if length(@ticks) > 0 do %>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>Symbol</th>
+              <th>Price</th>
+            </tr>
+            <%= for tick <- Keyword.values(@ticks) do %>
+            <tr>
+              <td><%= tick.symbol %></td>
+              <td>
+                <span class={"#{elem(get_direction_indicators(tick.direction), 0)}"}>
+                  <i class={"fa #{elem(get_direction_indicators(tick.direction), 1)}"}></i>
+                  <%= tick.price %>
+                </span>
+              </td>
+            </tr>
+            <% end %>
+          </tbody></table>
+        </div>
+      <% else %>
+        <div class="box-body">
+          You are not streaming any symbols at the moment. Go to "Streaming settings" to enable
+          streaming on symbols that will show up here
+        </div>
+      <% end %>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     ticks =
       Hefty.Streams.fetch_streaming_symbols()
@@ -70,6 +73,7 @@ defmodule UiWeb.PriceFeedLive do
     {:ok, assign(socket, ticks: ticks)}
   end
 
+  @impl true
   def handle_event("validate", %{"search" => search}, socket) do
     ticks =
       Hefty.Streams.fetch_streaming_symbols(search)
@@ -80,6 +84,7 @@ defmodule UiWeb.PriceFeedLive do
     {:noreply, assign(socket, ticks: ticks)}
   end
 
+  @impl true
   def handle_info(%{event: "trade_event", payload: event}, socket) do
     old_tick =
       Keyword.get(

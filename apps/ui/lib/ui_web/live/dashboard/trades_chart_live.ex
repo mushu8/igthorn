@@ -1,11 +1,11 @@
 defmodule UiWeb.TradesChartLive do
   @moduledoc false
 
-  use Phoenix.LiveView
-  use Phoenix.HTML
+  use UiWeb, :live_view
 
+  @impl true
   def render(assigns) do
-    ~L"""
+    ~H"""
     <div class="box box-info">
       <div class="box-header with-border">
         <h3 class="box-title">Latest Trades</h3>
@@ -21,14 +21,12 @@ defmodule UiWeb.TradesChartLive do
         <div class="row">
           <%= if length(@symbols) > 0 do %>
             <div class="col-xs-2">
-              <form phx-change="change-symbol" id="change-symbol">
+              <form phx-change="change-symbol" id="trades-chart-change-symbol">
                 <select name="selected_symbol" class="form-control">
                   <%= for row <- @symbols do %>
-                    <option value="<%= row %>"
-                    <%= if row == @symbol do %>
-                      selected
-                    <% end %>
-                    ><%= row %></option>
+                  <option value={row} selected={row == @symbol}>
+                    <%= row %>
+                  </option>
                   <% end %>
                 </select>
               </form>
@@ -37,9 +35,13 @@ defmodule UiWeb.TradesChartLive do
         </div><br>
         <div class="chart">
           <canvas id="barChart" style="display: block; width: 1000px!important; height: 400px; margin: auto;" width="1000" height="400"></canvas>
-          <script id="chart<%= Base.encode64(:erlang.md5(@symbol)) %>">
+          <script id={"chart-#{Base.encode64(:erlang.md5(@symbol))}"}>
             renderBarChart(
-              [<%= for s <- get_active_symbols(@symbol, @symbols) do %>"<%= s %>",<% end %>],
+              [
+                <%= for s <- get_active_symbols(@symbol, @symbols) do %>
+                "<%= s %>",
+                <% end %>
+              ],
               <%= raw(get_active_values(@symbol, @symbols)) %>
             )
           </script>
@@ -50,12 +52,14 @@ defmodule UiWeb.TradesChartLive do
     """
   end
 
+  @impl true
   def mount(_params, _session, socket) do
     symbols = ["ALL" | Hefty.Trades.get_all_trading_symbols()]
 
     {:ok, assign(socket, data: get_data(), symbol: "ALL", symbols: symbols)}
   end
 
+  @impl true
   def handle_event("change-symbol", %{"selected_symbol" => selected_symbol}, socket) do
     {:noreply,
      assign(socket,

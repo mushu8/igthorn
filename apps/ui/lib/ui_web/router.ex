@@ -20,8 +20,8 @@ defmodule UiWeb.Router do
 
     live("/", DashboardLive)
     live("/streaming-settings", StreamingSettingsLive)
-    live("/orders", OrdersLive)
     live("/trades", TradesLive)
+    live("/orders", OrdersLive)
     live("/backtesting", BacktestingLive)
     live("/naive-trader-settings", NaiveTraderSettingsLive)
     live("/settings", SettingsLive)
