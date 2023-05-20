@@ -22,7 +22,6 @@ defmodule UiWeb.Router do
     live("/streaming-settings", StreamingSettingsLive)
     live("/orders", OrdersLive)
     live("/trades", TradesLive)
-    # live("/transactions", TransactionsController, :index)
     live("/backtesting", BacktestingLive)
     live("/naive-trader-settings", NaiveTraderSettingsLive)
     live("/settings", SettingsLive)
