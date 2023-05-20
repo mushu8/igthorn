@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Trades</h3>
+        <h3 class="box-title">Orders</h3>
         <div class="box-tools">
           <form phx-change="search" phx-submit="search" id="search">
             <div class="input-group input-group-sm" style="width: 180px;">
@@ -28,11 +28,9 @@
             <div class="input-group input-group-sm col-xs-5">
               <select class="form-control" name="rows_per_page">
                 <%= for row <- @rows_numbers do %>
-                <option
-                  value={row}
-                  selected={row == @set_rows}>
-                  <%= row %>
-                </option>
+                  <option value={row} selected={row == @set_rows}>
+                    <%= row %>
+                  </option>
                 <% end %>
               </select>
               <span class="input-group-btn">
@@ -44,27 +42,28 @@
         <br>
         <.live_component
           module={__MODULE__.Table}
-          id="trades-table"
-          trades_data={@trades_data.list} />
+          id="orders-table"
+          orders_data={@orders_data.list} />
       </div>
       <div class="box-footer clearfix">
         <span>
-          <%= @trades_data.total %> row(s)
+          <%= @orders_data.total %> row(s)
         </span>
         <ul
           class="pagination pagination-sm no-margin pull-right"
-          :if={@trades_data.show_pagination?}>
+          :if={@orders_data.show_pagination?}>
           <li>
             <a phx-click="pagination-1" href="#">«</a>
           </li>
-          <li :for={link <- @trades_data.pagination_links}
-              class={if link == @trades_data.page, do: "active", else: nil}>
+          <%= for link <- @orders_data.pagination_links do %>
+          <li class={if link == @orders_data.page, do: "active", else: nil}>
             <a phx-click={"pagination-#{link}"} href="#">
               <%= link %>
             </a>
           </li>
+          <% end %>
           <li>
-            <a phx-click={"pagination-#{@trades_data.pages}"} href="#">»</a>
+            <a phx-click={"pagination-#{@orders_data.pages}"} href="#">»</a>
           </li>
         </ul>
       </div>
