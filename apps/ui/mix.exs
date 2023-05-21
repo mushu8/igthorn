@@ -42,6 +42,7 @@ defmodule Ui.MixProject do
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
       {:gettext, "~> 0.22"},
       {:hefty, in_umbrella: true},
+      {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.2"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.3"},

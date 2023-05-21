@@ -12,6 +12,7 @@ import Config
 # Hefty
 
 config :hefty,
+  env: config_env(),
   ecto_repos: [Hefty.Repo],
   exchanges: %{
     binance: Binance
@@ -61,10 +62,21 @@ config :binance,
 config :ui, UiWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "R23gwF7fVqXLhFsqsIyDPxPwZiZPKzZxjtJHw+p1U4vHPJdk3dh1zB6PK1tyYtYV",
-  render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [
+    formats: [html: Ui.ErrorHTML],
+    layout: false
+  ],
   pubsub_server: Hefty.PubSub,
-  live_view: [
-    signing_salt: "SECRET_SALT"
+  live_view: [signing_salt: "SECRET_SALT"]
+
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.17.19",
+  default: [
+    args:
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../apps/ui_web/assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
 # Common to all apps

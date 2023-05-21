@@ -5,7 +5,6 @@ import_config "dev.exs"
 # Hefty
 
 config :hefty,
-  env: config_env(),
   exchanges: %{
     binance: Hefty.Exchanges.BinanceMock
   }
