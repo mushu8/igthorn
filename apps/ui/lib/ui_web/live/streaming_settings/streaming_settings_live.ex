@@ -4,30 +4,20 @@ defmodule UiWeb.StreamingSettingsLive do
   use UiWeb, :live_view
   require Logger
 
+  # %Hefty.Repo.StreamingSetting
   @impl true
   def mount(_params, _session, socket) do
-    socket =
-      if connected?(socket) do
-        settings =
-          Hefty.Streams.fetch_settings()
-          |> Enum.into([], &{:"#{&1.symbol}", &1})
+    settings =
+      Hefty.Streams.fetch_settings()
+      |> Enum.into([], &{:"#{&1.symbol}", &1})
 
-        assign(
-          socket,
-          page_title: "Streaming settings",
-          section_subtitle: "Enabled or disable streaming on specific symbols",
-          settings: settings,
-          search: ""
-        )
-      else
-        assign(
-          socket,
-          page_title: "Streaming settings",
-          section_subtitle: "Enabled or disable streaming on specific symbols",
-          settings: [],
-          search: ""
-        )
-      end
+    socket = assign(
+      socket,
+      page_title: "Streaming settings",
+      section_subtitle: "Enabled or disable streaming on specific symbols",
+      settings: settings,
+      search: ""
+    )
 
     {:ok, socket}
   end
