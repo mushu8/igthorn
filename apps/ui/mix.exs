@@ -14,6 +14,7 @@ defmodule Ui.MixProject do
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -38,9 +39,9 @@ defmodule Ui.MixProject do
   defp deps do
     [
       {:decimal, "~> 2.1"},
+      {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
       {:gettext, "~> 0.22"},
       {:hefty, in_umbrella: true},
-      {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.2"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.3"},
@@ -50,6 +51,16 @@ defmodule Ui.MixProject do
       {:plug_cowboy, "~> 2.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      setup: ["deps.get", "assets.setup", "assets.build"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind default", "esbuild default"],
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

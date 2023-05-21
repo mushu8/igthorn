@@ -1,22 +1,79 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Mix.Config module.
+# This file is responsible for configuring your umbrella
+# and **all applications** and their dependencies with the
+# help of the Config module.
+#
+# Note that all applications in your umbrella share the
+# same configuration and dependencies, which is why they
+# all use the same configuration file. If you want different
+# configurations or dependencies per app, it is best to
+# move said applications out of the umbrella.
 import Config
 
-# By default, the umbrella project as well as each child
-# application will require this configuration file, as
-# configuration and dependencies are shared in an umbrella
-# project. While one could configure all applications here,
-# we prefer to keep the configuration of each individual
-# child application in their own app, but all other
-# dependencies, regardless if they belong to one or multiple
-# apps, should be configured in the umbrella to avoid confusion.
-for config <- "../apps/*/config/config.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
-  import_config config
-end
+# Hefty
 
-# Sample configuration (overrides the imported configuration above):
-#
-#     config :logger, :console,
-#       level: :info,
-#       format: "$date $time [$level] $metadata$message\n",
-#       metadata: [:user_id]
+config :hefty,
+  ecto_repos: [Hefty.Repo],
+  exchanges: %{
+    binance: Binance
+  },
+  trading: %{
+    :defaults => %{
+      :chunks => 50,
+      :budget => "1000.0",
+      # 0.25%
+      :profit_interval => "0.0025",
+      # buy down should never be below 0.15% as stop losses
+      # would generate even more losses
+      # 0.1%
+      :buy_down_interval => "0.001",
+      # 5%
+      :stop_loss_interval => "0.05",
+      # 0.2% - buy down so 0.1% really
+      # needs to be always bigger than buy_down_interval!!
+      :retarget_interval => "0.002",
+      # 0.1%
+      :rebuy_interval => "0.001",
+      # WARNING: Change this to 0.001 if you won't pay fees in BNB
+      :fee => "0.00075"
+      # :fee => "0.001"
+    }
+  }
+
+config :hefty, Hefty.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "hefty_dev",
+  hostname: "localhost",
+  port: 5432,
+  pool_size: 10,
+  log: :debug,
+  timeout: 60_000,
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true
+
+config :binance,
+  api_key: "",
+  secret_key: ""
+
+# UI
+
+# Configures the endpoint
+config :ui, UiWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "R23gwF7fVqXLhFsqsIyDPxPwZiZPKzZxjtJHw+p1U4vHPJdk3dh1zB6PK1tyYtYV",
+  render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],
+  pubsub_server: Hefty.PubSub,
+  live_view: [
+    signing_salt: "SECRET_SALT"
+  ]
+
+# Common to all apps
+
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:application, :request_id, :module]
+
+# Import environment specific config.
+# This must remain at the bottom of this file so
+# it overrides the configuration defined above.
+import_config "#{config_env()}.exs"

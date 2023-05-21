@@ -14,7 +14,7 @@ defmodule Hefty.Application do
     ]
 
     backtesting_workers =
-      case Application.get_env(:hefty, :env) == "backtesting" do
+      case Application.fetch_env!(:hefty, :env) == "backtesting" do
         false -> []
         true -> [{Hefty.Exchanges.BinanceMock, []}]
       end
